@@ -17,6 +17,7 @@ spring:
         show_sql: false
         default_batch_fetch_size: 100
     defer-datasource-initialization: true
+    open-in-view: false
 
 logging.level:
   org:
