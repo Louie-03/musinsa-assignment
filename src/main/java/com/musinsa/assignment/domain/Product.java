@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Getter;
 
+@Getter
 @Entity
 public class Product {
 
@@ -23,4 +25,5 @@ public class Product {
     private Brand brand;
 
     private int price;
+
 }

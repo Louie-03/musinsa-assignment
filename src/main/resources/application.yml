@@ -19,6 +19,10 @@ spring:
     defer-datasource-initialization: true
     open-in-view: false
 
+  h2:
+    console:
+      enabled: true
+
 logging.level:
   org:
     hibernate.SQL: debug
