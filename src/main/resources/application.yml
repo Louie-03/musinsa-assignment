@@ -1,9 +1,13 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/musinsa
-    username: louie
-    password: '0524'
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:musinsa
+    username: sa
+
+  sql:
+    init:
+      mode: always
+      encoding: utf-8
   jpa:
     hibernate:
       ddl-auto: create
@@ -11,15 +15,10 @@ spring:
       hibernate:
         format_sql: true
         show_sql: false
-#        dialect: Mysql
         default_batch_fetch_size: 100
     defer-datasource-initialization: true
+    open-in-view: false
 
-  sql:
-    init:
-      mode: always
-      encoding: UTF-8
-
-logging:
-  level:
-    org.hibernate.SQL: debug
+logging.level:
+  org:
+    hibernate.SQL: debug
