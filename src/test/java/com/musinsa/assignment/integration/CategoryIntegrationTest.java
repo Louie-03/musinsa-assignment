@@ -74,4 +74,22 @@ class CategoryIntegrationTest {
             .body("totalPrice", equalTo(34100))
             .body("details", hasSize(8));
     }
+
+    @Test
+    void 카테고리_이름으로_검색한_카테고리에_포함된_상품의_최소_최대_가격과_브랜드를_조회한다() {
+        given(documentationSpec)
+            .accept(APPLICATION_JSON_VALUE)
+            .filter(document("get-category-name-contains-product-lowest-and-highest-price",
+                preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+
+            .when()
+            .get("/categories/min-and-max-price?category-name=상의")
+
+            .then()
+            .statusCode(HttpStatus.OK.value())
+            .body("min.brandName", equalTo("C"))
+            .body("min.price", equalTo(10000))
+            .body("max.brandName", equalTo("I"))
+            .body("max.price", equalTo(11400));
+    }
 }
