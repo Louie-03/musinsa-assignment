@@ -1,7 +1,6 @@
 package com.musinsa.assignment.service;
 
 import com.musinsa.assignment.domain.Product;
-import com.musinsa.assignment.repository.CategoryRepository;
 import com.musinsa.assignment.repository.ProductRepository;
 import com.musinsa.assignment.web.dto.category.CategoryListRequest;
 import com.musinsa.assignment.web.dto.category.CategoryListResponse;
@@ -17,25 +16,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CategoryService {
 
-    private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
 
     public CategoryListResponse getLowestProductInCategoryAndBrandList(
         List<CategoryListRequest> requests) {
         List<Product> products = new ArrayList<>();
         for (CategoryListRequest request : requests) {
-            Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(request.getCategoryId(), request.getBrandId())
-                .get(0);
+            Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(
+                request.getCategoryId(), request.getBrandId());
             products.add(product);
         }
         return new CategoryListResponse(products);
     }
 
     public CategoryLowestAndHighestPriceResponse getCategoryLowestAndHighestPrice(String categoryName) {
-        Product lowestProduct = productRepository.findLowestPriceByCategoryName(
-            categoryName).get(0);
-        Product highestProduct = productRepository.findHighestPriceByCategoryName(
-            categoryName).get(0);
+        Product lowestProduct = productRepository.findLowestPriceByCategoryName(categoryName);
+        Product highestProduct = productRepository.findHighestPriceByCategoryName(categoryName);
         return new CategoryLowestAndHighestPriceResponse(lowestProduct, highestProduct);
     }
 }
