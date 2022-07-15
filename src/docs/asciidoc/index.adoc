@@ -11,3 +11,11 @@ include::{snippets}/get-category-list/http-request.adoc[]
 
 === Response
 include::{snippets}/get-category-list/http-response.adoc[]
+
+== 특정 브랜드의 모든 카테고리에 대한 최저가 상품의 총합과 브랜드 조회
+
+=== Request
+include::{snippets}/get-brand-min-prices/http-request.adoc[]
+
+=== Response
+include::{snippets}/get-brand-min-prices/http-response.adoc[]

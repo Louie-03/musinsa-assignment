@@ -445,16 +445,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_모든_카테고리에_대한_특정_브랜드의_상품_중_최저가_조회_기능_구현">모든 카테고리에 대한 특정 브랜드의 상품 중 최저가 조회 기능 구현</h2>
+<h2 id="_모든_카테고리에_대한_특정_브랜드의_상품_중_최저가_조회_기능">모든 카테고리에 대한 특정 브랜드의 상품 중 최저가 조회 기능</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request">Request</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /categories HTTP/1.1
-Accept: application/json, application/javascript, text/javascript, text/json
+Accept: application/json
 Content-Type: application/json
-Host: localhost:52056
+Host: localhost:59175
 Content-Length: 354
 
 [ {
@@ -492,7 +492,7 @@ Content-Length: 354
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Thu, 14 Jul 2022 16:26:35 GMT
+Date: Fri, 15 Jul 2022 04:37:45 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 1079
@@ -554,11 +554,45 @@ Content-Length: 1079
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_특정_브랜드의_모든_카테고리에_대한_상품_중_최저가의_총합과_브랜드_조회">특정 브랜드의 모든 카테고리에 대한 상품 중 최저가의 총합과 브랜드 조회</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_2">Request</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /brands/4/min-prices HTTP/1.1
+Accept: application/json
+Host: localhost:59175</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_2">Response</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Fri, 15 Jul 2022 04:37:43 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+Content-Length: 45
+
+{
+  "name" : "D",
+  "totalPrice" : 36100
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-07-15 01:25:52 +0900
+Last updated 2022-07-15 13:29:04 +0900
 </div>
 </div>
 </body>

@@ -26,4 +26,11 @@ public class Product {
 
     private int price;
 
+    @Override
+    public String toString() {
+        return "Product{" +
+            "id=" + id +
+            ", category=" + category +
+            '}';
+    }
 }

@@ -21,7 +21,7 @@ public class CategoryService {
         List<CategoryListRequest> requests) {
         List<Product> products = new ArrayList<>();
         for (CategoryListRequest request : requests) {
-            Product product = productRepository.find(request.getCategoryId(), request.getBrandId())
+            Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(request.getCategoryId(), request.getBrandId())
                 .get(0);
             products.add(product);
         }
