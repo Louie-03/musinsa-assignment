@@ -78,6 +78,7 @@ class CategoryIntegrationTest {
     @Test
     void 카테고리_이름으로_검색한_카테고리에_포함된_상품의_최소_최대_가격과_브랜드를_조회한다() {
         given(documentationSpec)
+            .urlEncodingEnabled(false)
             .accept(APPLICATION_JSON_VALUE)
             .filter(document("get-category-name-contains-product-lowest-and-highest-price",
                 preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))

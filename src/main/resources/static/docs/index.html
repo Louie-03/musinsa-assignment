@@ -454,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /categories HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:59175
+Host: localhost:51059
 Content-Length: 354
 
 [ {
@@ -492,7 +492,7 @@ Content-Length: 354
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 15 Jul 2022 04:37:45 GMT
+Date: Fri, 15 Jul 2022 12:30:38 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 1079
@@ -555,7 +555,7 @@ Content-Length: 1079
 </div>
 </div>
 <div class="sect1">
-<h2 id="_특정_브랜드의_모든_카테고리에_대한_상품_중_최저가의_총합과_브랜드_조회">특정 브랜드의 모든 카테고리에 대한 상품 중 최저가의 총합과 브랜드 조회</h2>
+<h2 id="_특정_브랜드의_모든_카테고리에_대한_최저가_상품의_총합과_브랜드_조회">특정 브랜드의 모든 카테고리에 대한 최저가 상품의 총합과 브랜드 조회</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_2">Request</h3>
@@ -563,7 +563,7 @@ Content-Length: 1079
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /brands/4/min-prices HTTP/1.1
 Accept: application/json
-Host: localhost:59175</code></pre>
+Host: localhost:51059</code></pre>
 </div>
 </div>
 </div>
@@ -574,7 +574,7 @@ Host: localhost:59175</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Fri, 15 Jul 2022 04:37:43 GMT
+Date: Fri, 15 Jul 2022 12:30:36 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 45
@@ -588,11 +588,51 @@ Content-Length: 45
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_카테고리_이름으로_검색한_카테고리에_포함된_상품의_최소_최대_가격과_브랜드를_조회한다">카테고리 이름으로 검색한 카테고리에 포함된 상품의 최소 최대 가격과 브랜드를 조회한다</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_request_3">Request</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /categories/min-and-max-price?category-name=상의 HTTP/1.1
+Accept: application/json
+Host: localhost:51059</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_response_3">Response</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Fri, 15 Jul 2022 12:30:36 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+Content-Length: 131
+
+{
+  "min" : {
+    "brandName" : "C",
+    "price" : 10000
+  },
+  "max" : {
+    "brandName" : "I",
+    "price" : 11400
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-07-15 13:29:04 +0900
+Last updated 2022-07-15 21:21:30 +0900
 </div>
 </div>
 </body>
