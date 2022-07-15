@@ -1,9 +1,11 @@
 package com.musinsa.assignment.service;
 
 import com.musinsa.assignment.domain.Product;
+import com.musinsa.assignment.repository.CategoryRepository;
 import com.musinsa.assignment.repository.ProductRepository;
 import com.musinsa.assignment.web.dto.category.CategoryListRequest;
 import com.musinsa.assignment.web.dto.category.CategoryListResponse;
+import com.musinsa.assignment.web.dto.category.CategoryLowestAndHighestPriceResponse;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CategoryService {
 
+    private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
 
     public CategoryListResponse getLowestProductInCategoryAndBrandList(
@@ -26,5 +29,13 @@ public class CategoryService {
             products.add(product);
         }
         return new CategoryListResponse(products);
+    }
+
+    public CategoryLowestAndHighestPriceResponse getCategoryLowestAndHighestPrice(String categoryName) {
+        Product lowestProduct = productRepository.findLowestPriceByCategoryName(
+            categoryName).get(0);
+        Product highestProduct = productRepository.findHighestPriceByCategoryName(
+            categoryName).get(0);
+        return new CategoryLowestAndHighestPriceResponse(lowestProduct, highestProduct);
     }
 }
