@@ -27,7 +27,7 @@ public class BrandService {
         List<Long> productIds = new ArrayList<>();
         for (Long categoryId : categoryIds) {
             Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(
-                categoryId, id).get(0);
+                categoryId, id);
             productIds.add(product.getId());
         }
         Brand brand = brandRepository.findByIdAndProductIds(id, productIds);
