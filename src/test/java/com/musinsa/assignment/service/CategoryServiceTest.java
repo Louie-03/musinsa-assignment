@@ -45,7 +45,8 @@ class CategoryServiceTest {
                     .willReturn(Optional.empty());
 
                 assertThatThrownBy(() -> categoryService.getLowestProductInCategoryAndBrandList(requests))
-                    .isInstanceOf(ProductNotFoundException.class);
+                    .isInstanceOf(ProductNotFoundException.class)
+                    .hasMessage("상품을 찾을 수 없습니다.");
             }
         }
 
@@ -64,7 +65,8 @@ class CategoryServiceTest {
                     .willReturn(Optional.empty());
 
                 assertThatThrownBy(() -> categoryService.getLowestProductInCategoryAndBrandList(requests))
-                    .isInstanceOf(ProductNotFoundException.class);
+                    .isInstanceOf(ProductNotFoundException.class)
+                    .hasMessage("상품을 찾을 수 없습니다.");
             }
 
         }
