@@ -2,6 +2,7 @@ package com.musinsa.assignment.service;
 
 import com.musinsa.assignment.domain.Brand;
 import com.musinsa.assignment.domain.Product;
+import com.musinsa.assignment.exception.ProductNotFoundException;
 import com.musinsa.assignment.repository.BrandRepository;
 import com.musinsa.assignment.repository.CategoryRepository;
 import com.musinsa.assignment.repository.ProductRepository;
@@ -21,13 +22,14 @@ public class BrandService {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
 
+//    TODO : Brand 엔티티에서 객체 그래프 탐색을 하도록 수정해보기
     public BrandDetailProductMinPriceResponse getBrandDetailProductMinPrice(Long id) {
         List<Long> categoryIds = categoryRepository.findAllId();
 
         List<Long> productIds = new ArrayList<>();
         for (Long categoryId : categoryIds) {
             Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(
-                categoryId, id);
+                    categoryId, id).orElseThrow(ProductNotFoundException::new);
             productIds.add(product.getId());
         }
         Brand brand = brandRepository.findByIdAndProductIds(id, productIds);
