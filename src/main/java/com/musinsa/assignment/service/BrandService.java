@@ -21,13 +21,14 @@ public class BrandService {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
 
+//    TODO : Brand 엔티티에서 객체 그래프 탐색을 하도록 수정해보기
     public BrandDetailProductMinPriceResponse getBrandDetailProductMinPrice(Long id) {
         List<Long> categoryIds = categoryRepository.findAllId();
 
         List<Long> productIds = new ArrayList<>();
         for (Long categoryId : categoryIds) {
             Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(
-                categoryId, id);
+                    categoryId, id).orElseThrow(IllegalStateException::new);
             productIds.add(product.getId());
         }
         Brand brand = brandRepository.findByIdAndProductIds(id, productIds);

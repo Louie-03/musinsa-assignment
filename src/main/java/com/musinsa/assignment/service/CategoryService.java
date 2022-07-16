@@ -23,15 +23,18 @@ public class CategoryService {
         List<Product> products = new ArrayList<>();
         for (CategoryListRequest request : requests) {
             Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(
-                request.getCategoryId(), request.getBrandId());
+                    request.getCategoryId(), request.getBrandId())
+                .orElseThrow(IllegalStateException::new);
             products.add(product);
         }
         return new CategoryListResponse(products);
     }
 
     public CategoryLowestAndHighestPriceResponse getCategoryLowestAndHighestPrice(String categoryName) {
-        Product lowestProduct = productRepository.findLowestPriceByCategoryName(categoryName);
-        Product highestProduct = productRepository.findHighestPriceByCategoryName(categoryName);
+        Product lowestProduct = productRepository.findLowestPriceByCategoryName(categoryName)
+            .orElseThrow(IllegalStateException::new);
+        Product highestProduct = productRepository.findHighestPriceByCategoryName(categoryName)
+            .orElseThrow(IllegalStateException::new);
         return new CategoryLowestAndHighestPriceResponse(lowestProduct, highestProduct);
     }
 }

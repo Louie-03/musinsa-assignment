@@ -9,6 +9,7 @@ import com.musinsa.assignment.domain.QCategory;
 import com.musinsa.assignment.domain.QProduct;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -17,9 +18,9 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Product findLowestPriceByCategoryIdAndBrandId(Long categoryId, Long brandId) {
+    public Optional<Product> findLowestPriceByCategoryIdAndBrandId(Long categoryId, Long brandId) {
         QProduct productSub = new QProduct("productSub");
-        return queryFactory
+        return Optional.ofNullable(queryFactory
             .selectFrom(product)
             .join(product.category, category).fetchJoin()
             .join(product.brand, brand).fetchJoin()
@@ -35,14 +36,14 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                                     .and(productSub.brand.id.eq(brandId))
                             )
                     ))
-            ).fetchFirst();
+            ).fetchFirst());
     }
 
     @Override
-    public Product findLowestPriceByCategoryName(String categoryName) {
+    public Optional<Product> findLowestPriceByCategoryName(String categoryName) {
         QProduct productSub = new QProduct("productSub");
         QCategory categorySub = new QCategory("categorySub");
-        return queryFactory
+        return Optional.ofNullable(queryFactory
             .selectFrom(product)
             .join(product.brand).fetchJoin()
             .join(product.category, category).on(category.name.eq(categoryName))
@@ -53,14 +54,14 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                         .from(productSub)
                         .join(productSub.category, categorySub)
                         .on(categorySub.name.eq(categoryName)))
-            ).fetchFirst();
+            ).fetchFirst());
     }
 
     @Override
-    public Product findHighestPriceByCategoryName(String categoryName) {
+    public Optional<Product> findHighestPriceByCategoryName(String categoryName) {
         QProduct productSub = new QProduct("productSub");
         QCategory categorySub = new QCategory("categorySub");
-        return queryFactory
+        return Optional.ofNullable(queryFactory
             .selectFrom(product)
             .join(product.brand, brand).fetchJoin()
             .join(product.category, category).on(category.name.eq(categoryName))
@@ -71,6 +72,6 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                         .from(productSub)
                         .join(productSub.category, categorySub)
                         .on(categorySub.name.eq(categoryName)))
-            ).fetchFirst();
+            ).fetchFirst());
     }
 }
