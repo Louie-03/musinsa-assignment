@@ -2,7 +2,7 @@ package com.musinsa.assignment.service;
 
 import com.musinsa.assignment.domain.Brand;
 import com.musinsa.assignment.domain.Product;
-import com.musinsa.assignment.exception.ProductNotFoundException;
+import com.musinsa.assignment.exception.unchecked.ProductNotFoundException;
 import com.musinsa.assignment.repository.BrandRepository;
 import com.musinsa.assignment.repository.CategoryRepository;
 import com.musinsa.assignment.repository.ProductRepository;

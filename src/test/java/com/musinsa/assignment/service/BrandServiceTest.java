@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-import com.musinsa.assignment.exception.ProductNotFoundException;
+import com.musinsa.assignment.exception.unchecked.ProductNotFoundException;
 import com.musinsa.assignment.repository.BrandRepository;
 import com.musinsa.assignment.repository.CategoryRepository;
 import com.musinsa.assignment.repository.ProductRepository;

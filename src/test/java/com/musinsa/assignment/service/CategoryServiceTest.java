@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-import com.musinsa.assignment.exception.ProductNotFoundException;
+import com.musinsa.assignment.exception.unchecked.ProductNotFoundException;
 import com.musinsa.assignment.repository.ProductRepository;
 import com.musinsa.assignment.web.dto.category.CategoryListRequest;
 import java.util.List;
