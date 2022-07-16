@@ -44,7 +44,7 @@ class BrandIntegrationTest {
     }
 
     @Test
-    void 특정_브랜드의_모든_카테고리에_대한_최저가_상품의_총합과_브랜드_조회() {
+    void 특정_브랜드의_모든_카테고리에_대한_최저가_상품의_총합과_브랜드_조회를_성공한다() {
         given(documentationSpec)
             .accept(APPLICATION_JSON_VALUE)
             .filter(document("get-brand-min-prices",
@@ -57,5 +57,21 @@ class BrandIntegrationTest {
             .statusCode(HttpStatus.OK.value())
             .body("name", equalTo("D"))
             .body("totalPrice", equalTo(36100));
+    }
+
+    @Test
+    void 특정_브랜드의_모든_카테고리에_대한_최저가_상품의_총합과_브랜드_조회를_실패한다() {
+        given(documentationSpec)
+            .accept(APPLICATION_JSON_VALUE)
+            .filter(document("get-brand-min-prices-fail",
+                preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+
+            .when()
+            .get("/brands/-10/min-prices")
+
+            .then()
+            .statusCode(HttpStatus.BAD_REQUEST.value())
+            .body("errorCode", equalTo("PRODUCT001"))
+            .body("message", equalTo("상품을 찾을 수 없습니다."));
     }
 }
