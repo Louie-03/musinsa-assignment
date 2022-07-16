@@ -5,17 +5,19 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-import com.musinsa.assignment.exception.ProductNotFoundException;
+import com.musinsa.assignment.exception.unchecked.ProductNotFoundException;
 import com.musinsa.assignment.repository.BrandRepository;
 import com.musinsa.assignment.repository.CategoryRepository;
 import com.musinsa.assignment.repository.ProductRepository;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("BrandService 클래스")
 @DisplayNameGeneration(ReplaceUnderscores.class)
 class BrandServiceTest {
 
@@ -41,7 +43,8 @@ class BrandServiceTest {
             .willReturn(Optional.empty());
 
         assertThatThrownBy(() -> brandService.getBrandDetailProductMinPrice(-1000000L))
-            .isInstanceOf(ProductNotFoundException.class);
+            .isInstanceOf(ProductNotFoundException.class)
+            .hasMessage("상품을 찾을 수 없습니다.");
     }
 
 }

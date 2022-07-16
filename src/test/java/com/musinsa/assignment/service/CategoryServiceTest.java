@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
-import com.musinsa.assignment.exception.ProductNotFoundException;
+import com.musinsa.assignment.exception.unchecked.ProductNotFoundException;
 import com.musinsa.assignment.repository.ProductRepository;
 import com.musinsa.assignment.web.dto.category.CategoryListRequest;
 import java.util.List;
@@ -45,7 +45,8 @@ class CategoryServiceTest {
                     .willReturn(Optional.empty());
 
                 assertThatThrownBy(() -> categoryService.getLowestProductInCategoryAndBrandList(requests))
-                    .isInstanceOf(ProductNotFoundException.class);
+                    .isInstanceOf(ProductNotFoundException.class)
+                    .hasMessage("상품을 찾을 수 없습니다.");
             }
         }
 
@@ -64,7 +65,8 @@ class CategoryServiceTest {
                     .willReturn(Optional.empty());
 
                 assertThatThrownBy(() -> categoryService.getLowestProductInCategoryAndBrandList(requests))
-                    .isInstanceOf(ProductNotFoundException.class);
+                    .isInstanceOf(ProductNotFoundException.class)
+                    .hasMessage("상품을 찾을 수 없습니다.");
             }
 
         }
