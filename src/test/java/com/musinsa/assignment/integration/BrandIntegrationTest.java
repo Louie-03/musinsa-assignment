@@ -13,8 +13,8 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator.ReplaceUnderscores;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,12 +22,10 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.transaction.annotation.Transactional;
 
-@DisplayNameGeneration(ReplaceUnderscores.class)
+@DisplayName("Brand 통합 테스트")
 @ExtendWith({RestDocumentationExtension.class})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
 class BrandIntegrationTest {
 
     @LocalServerPort
@@ -43,35 +41,53 @@ class BrandIntegrationTest {
             .build();
     }
 
-    @Test
-    void 특정_브랜드의_모든_카테고리에_대한_최저가_상품의_총합과_브랜드_조회를_성공한다() {
-        given(documentationSpec)
-            .accept(APPLICATION_JSON_VALUE)
-            .filter(document("get-brand-min-prices",
-                preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+    @Nested
+    @DisplayName("특정 브랜드의 모든 카테고리에 대한 최저가 상품의 총합과 브랜드 조회 API는")
+    class get_brand_detail_product_min_price {
 
-            .when()
-            .get("/brands/4/min-prices")
+        @Nested
+        @DisplayName("brandId가 유효하다면")
+        class brand_id_is_valid {
 
-            .then()
-            .statusCode(HttpStatus.OK.value())
-            .body("name", equalTo("D"))
-            .body("totalPrice", equalTo(36100));
-    }
+            @Test
+            @DisplayName("API 응답에 성공한다.")
+            void success_api_response() {
+                given(documentationSpec)
+                    .accept(APPLICATION_JSON_VALUE)
+                    .filter(document("get-brand-min-prices-success",
+                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
 
-    @Test
-    void 특정_브랜드의_모든_카테고리에_대한_최저가_상품의_총합과_브랜드_조회를_실패한다() {
-        given(documentationSpec)
-            .accept(APPLICATION_JSON_VALUE)
-            .filter(document("get-brand-min-prices-fail",
-                preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                    .when()
+                    .get("/brands/4/min-prices")
 
-            .when()
-            .get("/brands/-10/min-prices")
+                    .then()
+                    .statusCode(HttpStatus.OK.value())
+                    .body("name", equalTo("D"))
+                    .body("totalPrice", equalTo(36100));
+            }
+        }
 
-            .then()
-            .statusCode(HttpStatus.BAD_REQUEST.value())
-            .body("errorCode", equalTo("PRODUCT001"))
-            .body("message", equalTo("상품을 찾을 수 없습니다."));
+        @Nested
+        @DisplayName("brandId가 유효하지 않다면")
+        class brand_id_is_not_valid {
+
+            @Test
+            @DisplayName("API 응답에 실패한다.")
+            void fail_api_response() {
+                given(documentationSpec)
+                    .accept(APPLICATION_JSON_VALUE)
+                    .filter(document("get-brand-min-prices-fail",
+                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+
+                    .when()
+                    .get("/brands/-10/min-prices")
+
+                    .then()
+                    .statusCode(HttpStatus.BAD_REQUEST.value())
+                    .body("errorCode", equalTo("PRODUCT001"))
+                    .body("message", equalTo("상품을 찾을 수 없습니다."));
+            }
+
+        }
     }
 }
