@@ -1,6 +1,7 @@
 package com.musinsa.assignment.service;
 
 import com.musinsa.assignment.domain.Product;
+import com.musinsa.assignment.exception.ProductNotFoundException;
 import com.musinsa.assignment.repository.ProductRepository;
 import com.musinsa.assignment.web.dto.category.CategoryListRequest;
 import com.musinsa.assignment.web.dto.category.CategoryListResponse;
@@ -24,7 +25,7 @@ public class CategoryService {
         for (CategoryListRequest request : requests) {
             Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(
                     request.getCategoryId(), request.getBrandId())
-                .orElseThrow(IllegalStateException::new);
+                .orElseThrow(ProductNotFoundException::new);
             products.add(product);
         }
         return new CategoryListResponse(products);
@@ -32,9 +33,9 @@ public class CategoryService {
 
     public CategoryLowestAndHighestPriceResponse getCategoryLowestAndHighestPrice(String categoryName) {
         Product lowestProduct = productRepository.findLowestPriceByCategoryName(categoryName)
-            .orElseThrow(IllegalStateException::new);
+            .orElseThrow(ProductNotFoundException::new);
         Product highestProduct = productRepository.findHighestPriceByCategoryName(categoryName)
-            .orElseThrow(IllegalStateException::new);
+            .orElseThrow(ProductNotFoundException::new);
         return new CategoryLowestAndHighestPriceResponse(lowestProduct, highestProduct);
     }
 }

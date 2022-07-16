@@ -2,6 +2,7 @@ package com.musinsa.assignment.service;
 
 import com.musinsa.assignment.domain.Brand;
 import com.musinsa.assignment.domain.Product;
+import com.musinsa.assignment.exception.ProductNotFoundException;
 import com.musinsa.assignment.repository.BrandRepository;
 import com.musinsa.assignment.repository.CategoryRepository;
 import com.musinsa.assignment.repository.ProductRepository;
@@ -28,7 +29,7 @@ public class BrandService {
         List<Long> productIds = new ArrayList<>();
         for (Long categoryId : categoryIds) {
             Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(
-                    categoryId, id).orElseThrow(IllegalStateException::new);
+                    categoryId, id).orElseThrow(ProductNotFoundException::new);
             productIds.add(product.getId());
         }
         Brand brand = brandRepository.findByIdAndProductIds(id, productIds);
