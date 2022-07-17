@@ -5,11 +5,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Getter;
 
 @Getter
 @Entity
+@Table(indexes = @Index(name = "index_category_name", columnList = "name"))
 public class Category {
 
     @Id
@@ -20,8 +23,4 @@ public class Category {
     private List<Product> products = new ArrayList<>();
 
     private String name;
-
-    public Product getFirstProduct() {
-        return products.get(0);
-    }
 }

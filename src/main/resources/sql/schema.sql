@@ -15,6 +15,7 @@ create table category
     name varchar(255),
     primary key (id)
 );
+create index index_category_name on category (name);
 
 create table product
 (
@@ -22,7 +23,7 @@ create table product
     price       integer not null,
     brand_id    bigint,
     category_id bigint,
-    foreign key (brand_id) references brand(id),
-    foreign key (category_id) references category(id),
+    foreign key (brand_id) references brand (id),
+    foreign key (category_id) references category (id),
     primary key (id)
 );
