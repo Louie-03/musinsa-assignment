@@ -1,9 +1,7 @@
 package com.musinsa.assignment.web.dto.category;
 
 import lombok.Getter;
-import lombok.ToString;
 
-@ToString
 @Getter
 public class CategoryListRequest {
     private Long categoryId;

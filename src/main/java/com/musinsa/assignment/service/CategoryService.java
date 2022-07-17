@@ -22,6 +22,7 @@ public class CategoryService {
 
     public CategoryListResponse getLowestProductInCategoryAndBrandList(
         List<CategoryListRequest> requests) {
+
         List<Product> products = new ArrayList<>();
         for (CategoryListRequest request : requests) {
             Product product = productRepository.findLowestPriceByCategoryIdAndBrandId(
@@ -33,10 +34,10 @@ public class CategoryService {
     }
 
     @Cacheable("getCategoryLowestAndHighestPrice")
-    public CategoryLowestAndHighestPriceResponse getCategoryLowestAndHighestPrice(String categoryName) {
-        Product lowestProduct = productRepository.findLowestPriceByCategoryName(categoryName)
+    public CategoryLowestAndHighestPriceResponse getCategoryLowestAndHighestPrice(String name) {
+        Product lowestProduct = productRepository.findLowestPriceByCategoryName(name)
             .orElseThrow(ProductNotFoundException::new);
-        Product highestProduct = productRepository.findHighestPriceByCategoryName(categoryName)
+        Product highestProduct = productRepository.findHighestPriceByCategoryName(name)
             .orElseThrow(ProductNotFoundException::new);
         return new CategoryLowestAndHighestPriceResponse(lowestProduct, highestProduct);
     }

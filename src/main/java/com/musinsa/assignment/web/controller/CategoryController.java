@@ -27,7 +27,7 @@ public class CategoryController {
 
     @GetMapping("/min-and-max-price")
     public CategoryLowestAndHighestPriceResponse getCategoryLowestAndHighestPrice(
-        @RequestParam("category-name") String categoryName) {
-        return categoryService.getCategoryLowestAndHighestPrice(categoryName);
+        @RequestParam String name) {
+        return categoryService.getCategoryLowestAndHighestPrice(name);
     }
 }

@@ -128,7 +128,7 @@ class CategoryIntegrationTest {
                         preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
 
                     .when()
-                    .get("/categories/min-and-max-price?category-name=상의")
+                    .get("/categories/min-and-max-price?name=상의")
 
                     .then()
                     .statusCode(HttpStatus.OK.value())
@@ -153,7 +153,7 @@ class CategoryIntegrationTest {
                         preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
 
                     .when()
-                    .get("/categories/min-and-max-price?category-name=상의123")
+                    .get("/categories/min-and-max-price?name=상의123")
 
                     .then()
                     .statusCode(HttpStatus.BAD_REQUEST.value())
