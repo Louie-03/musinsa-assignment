@@ -10,6 +10,7 @@ import com.musinsa.assignment.web.dto.brand.BrandDetailProductMinPriceResponse;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ public class BrandService {
     private final ProductRepository productRepository;
 
 //    TODO : Brand 엔티티에서 객체 그래프 탐색을 하도록 수정해보기
+    @Cacheable("getBrandDetailProductMinPrice")
     public BrandDetailProductMinPriceResponse getBrandDetailProductMinPrice(Long id) {
         List<Long> categoryIds = categoryRepository.findAllId();
 

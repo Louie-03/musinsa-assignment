@@ -2,7 +2,9 @@ package com.musinsa.assignment.web.dto.category;
 
 import com.musinsa.assignment.domain.Product;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class CategoryLowestAndHighestPriceDetailResponse {
     private String brandName;

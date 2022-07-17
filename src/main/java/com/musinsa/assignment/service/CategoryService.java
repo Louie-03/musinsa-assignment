@@ -9,6 +9,7 @@ import com.musinsa.assignment.web.dto.category.CategoryLowestAndHighestPriceResp
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ public class CategoryService {
         return new CategoryListResponse(products);
     }
 
+    @Cacheable("getCategoryLowestAndHighestPrice")
     public CategoryLowestAndHighestPriceResponse getCategoryLowestAndHighestPrice(String categoryName) {
         Product lowestProduct = productRepository.findLowestPriceByCategoryName(categoryName)
             .orElseThrow(ProductNotFoundException::new);
