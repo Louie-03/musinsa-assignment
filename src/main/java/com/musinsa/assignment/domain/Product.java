@@ -1,5 +1,6 @@
 package com.musinsa.assignment.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,21 +17,15 @@ public class Product {
     @GeneratedValue
     private Long id;
 
-    @JoinColumn
+    @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
-    @JoinColumn
+    @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Brand brand;
 
+    @Column(nullable = false)
     private int price;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-            "id=" + id +
-            ", category=" + category +
-            '}';
-    }
 }

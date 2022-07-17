@@ -2,6 +2,7 @@ package com.musinsa.assignment.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ public class Brand {
     @OneToMany(mappedBy = "brand")
     private List<Product> products = new ArrayList<>();
 
+    @Column(nullable = false, unique = true)
     private String name;
 
 }
