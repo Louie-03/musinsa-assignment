@@ -15,12 +15,12 @@ include::{snippets}/get-category-list/http-response.adoc[]
 == 특정 브랜드의 모든 카테고리에 대한 최저가 상품의 총합과 브랜드 조회
 
 === Request
-include::{snippets}/get-brand-min-prices/http-request.adoc[]
+include::{snippets}/get-brand-min-prices-success/http-request.adoc[]
 
 === Response
-include::{snippets}/get-brand-min-prices/http-response.adoc[]
+include::{snippets}/get-brand-min-prices-success/http-response.adoc[]
 
-== 카테고리 이름으로 검색한 카테고리에 포함된 상품의 최소 최대 가격과 브랜드를 조회한다
+== 카테고리 이름으로 검색한 카테고리에 포함된 상품의 최소 최대 가격과 브랜드 조회
 
 === Request
 include::{snippets}/get-category-name-contains-product-lowest-and-highest-price/http-request.adoc[]

@@ -3,10 +3,14 @@ package com.musinsa.assignment.integration;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.http.HttpHeaders.CONNECTION;
+import static org.springframework.http.HttpHeaders.CONTENT_LENGTH;
+import static org.springframework.http.HttpHeaders.DATE;
+import static org.springframework.http.HttpHeaders.HOST;
+import static org.springframework.http.HttpHeaders.TRANSFER_ENCODING;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.removeHeaders;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.document;
 import static org.springframework.restdocs.restassured3.RestAssuredRestDocumentation.documentationConfiguration;
 
@@ -40,7 +44,16 @@ class CategoryIntegrationTest {
     void setup(RestDocumentationContextProvider restDocumentation) {
         RestAssured.port = port;
         documentationSpec = new RequestSpecBuilder()
-            .addFilter(documentationConfiguration(restDocumentation))
+            .addFilter(
+                documentationConfiguration(restDocumentation)
+                .operationPreprocessors()
+                    .withRequestDefaults(
+                        prettyPrint(),
+                        removeHeaders(HOST, CONTENT_LENGTH))
+                    .withResponseDefaults(
+                        prettyPrint(),
+                        removeHeaders(CONTENT_LENGTH, CONNECTION, DATE, TRANSFER_ENCODING))
+            )
             .build();
     }
 
@@ -70,8 +83,7 @@ class CategoryIntegrationTest {
                     .body(body)
                     .contentType(APPLICATION_JSON_VALUE)
                     .accept(APPLICATION_JSON_VALUE)
-                    .filter(document("get-category-list",
-                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                    .filter(document("get-category-list"))
 
                     .when()
                     .get("/categories")
@@ -96,8 +108,7 @@ class CategoryIntegrationTest {
                     .body(body)
                     .contentType(APPLICATION_JSON_VALUE)
                     .accept(APPLICATION_JSON_VALUE)
-                    .filter(document("get-category-list-fail",
-                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                    .filter(document("get-category-list-fail"))
 
                     .when()
                     .get("/categories")
@@ -124,8 +135,7 @@ class CategoryIntegrationTest {
                 given(documentationSpec)
                     .urlEncodingEnabled(false)
                     .accept(APPLICATION_JSON_VALUE)
-                    .filter(document("get-category-name-contains-product-lowest-and-highest-price",
-                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                    .filter(document("get-category-name-contains-product-lowest-and-highest-price"))
 
                     .when()
                     .get("/categories/min-and-max-price?name=상의")
@@ -149,8 +159,7 @@ class CategoryIntegrationTest {
                 given(documentationSpec)
                     .urlEncodingEnabled(false)
                     .accept(APPLICATION_JSON_VALUE)
-                    .filter(document("get-category-name-contains-product-lowest-and-highest-price-fail",
-                        preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint())))
+                    .filter(document("get-category-name-contains-product-lowest-and-highest-price-fail"))
 
                     .when()
                     .get("/categories/min-and-max-price?name=상의123")

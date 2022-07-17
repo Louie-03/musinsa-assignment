@@ -454,8 +454,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /categories HTTP/1.1
 Accept: application/json
 Content-Type: application/json
-Host: localhost:53576
-Content-Length: 354
 
 [ {
   "categoryId" : 1,
@@ -491,11 +489,7 @@ Content-Length: 354
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Transfer-Encoding: chunked
-Date: Sun, 17 Jul 2022 13:31:58 GMT
 Keep-Alive: timeout=60
-Connection: keep-alive
-Content-Length: 1079
 
 {
   "totalPrice" : 34100,
@@ -559,14 +553,26 @@ Content-Length: 1079
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_request_2">Request</h3>
-<div class="paragraph">
-<p>Unresolved directive in index.adoc - include::./build/generated-snippets/get-brand-min-prices/http-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /brands/4/min-prices HTTP/1.1
+Accept: application/json</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_response_2">Response</h3>
-<div class="paragraph">
-<p>Unresolved directive in index.adoc - include::./build/generated-snippets/get-brand-min-prices/http-response.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Keep-Alive: timeout=60
+
+{
+  "name" : "D",
+  "totalPrice" : 36100
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -578,9 +584,8 @@ Content-Length: 1079
 <h3 id="_request_3">Request</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /categories/min-and-max-price?category-name=상의 HTTP/1.1
-Accept: application/json
-Host: localhost:53576</code></pre>
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /categories/min-and-max-price?name=상의 HTTP/1.1
+Accept: application/json</code></pre>
 </div>
 </div>
 </div>
@@ -590,11 +595,7 @@ Host: localhost:53576</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Transfer-Encoding: chunked
-Date: Sun, 17 Jul 2022 13:31:57 GMT
 Keep-Alive: timeout=60
-Connection: keep-alive
-Content-Length: 131
 
 {
   "min" : {
@@ -615,7 +616,7 @@ Content-Length: 131
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-07-15 21:21:30 +0900
+Last updated 2022-07-17 23:28:42 +0900
 </div>
 </div>
 </body>
